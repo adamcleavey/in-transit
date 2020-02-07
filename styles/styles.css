@@ -17,6 +17,15 @@ body {
     position: relative;
 	background-image: linear-gradient(to bottom right, red, yellow);
 }
+.cell img {
+	width: 80%;
+	margin: 0 auto;
+	display: block;
+	position: absolute;
+	top: 50%;
+	left: 10%;
+	transform: translate(0, -50%)
+}
 @media screen and (min-width: 640px) {
   .cell {
 	  width: 50%;
