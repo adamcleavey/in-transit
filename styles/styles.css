@@ -2,3 +2,23 @@ body {
 	background-color: black;
 	color: white;
 }
+#container {
+	margin: 0;
+	padding: 0;
+}
+.cell {
+	height: 200px;
+    width: 100%;
+    display: block;
+    text-align: center;
+    vertical-align: middle;
+	margin: 0;
+    float: left;
+    position: relative;
+	background-image: linear-gradient(to bottom right, red, yellow);
+}
+@media screen and (min-width: 640px) {
+  .cell {
+	  width: 50%;
+  }
+}
