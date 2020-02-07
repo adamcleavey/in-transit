@@ -1,6 +1,5 @@
 body {
-	background-color: black;
-	color: white;
+	margin: 0;
 }
 #container {
 	margin: 0;
@@ -14,7 +13,6 @@ body {
 	margin: 0;
     float: left;
     position: relative;
-	background-image: linear-gradient(to bottom right, red, yellow);
 }
 .cell img {
 	width: 80%;
@@ -38,5 +36,10 @@ body {
 @media screen and (min-width: 640px) {
   .cell {
 	  width: 50%;
+	  height: 300px;
   }
+  .cell img {
+	width: 60%;
+	left: 20%;
+}
 }
