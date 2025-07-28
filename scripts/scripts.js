@@ -34,14 +34,14 @@ let audioPlayer = {
 		// set state
 		this.playing = true;
 	},
-	pause: function (name) {
-		if (this.playing){
-			// stop audio
-			$('.board-button.active').removeClass('.active');
-			this.currentlyPlaying.trigger('pause')
-			this.playing = false;
-		}
-	}
+        pause: function (name) {
+                if (this.playing){
+                        // stop audio
+                        $('.cell.active').removeClass('active');
+                        this.currentlyPlaying.trigger('pause');
+                        this.playing = false;
+                }
+        }
 }
 
 // button handler
