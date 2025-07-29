@@ -1,53 +1,53 @@
-// scripts
+// Modern JavaScript audio player without jQuery
 
-// audioplayer
-let audioPlayer = {
-	playing: false,
-	currentlyPlaying: null,
-	progressIndicator: null,
-	play: function (element) {
-		//get and save name
-		var name = $(element).attr('id')
-		//pause audio if active
-		this.pause(name);
-		// if its the same one as previously active, stop it.
-		if (this.currentlyPlaying) {
-			console.log(this.currentlyPlaying.attr('id'));
-			if (this.currentlyPlaying.attr('id')===name+'-audio') {
-				$(element).removeClass('active')
-				this.playing = false;
-				this.currentlyPlaying = null;
-				return;
-			}
-		};
-		//play audio file
-		this.currentlyPlaying = $(element).children('audio');
-		$(element).children('audio').trigger('play');
-		//control progress bar
-		var progress = $(element).children('.progress');
-		progress.css('display','block');
-		this.currentlyPlaying.on('timeupdate', function() {
-			var percent = (this.currentTime/this.duration)*100;
-			progress.css("width", percent + "%");
-		});
-		this.progressIndicator = progress;
-		// set state
-		this.playing = true;
-	},
-        pause: function (name) {
-                if (this.playing){
-                        // stop audio
-                        $('.cell.active').removeClass('active');
-                        this.currentlyPlaying.trigger('pause');
-                        this.playing = false;
-                }
+class AudioPlayer {
+    constructor() {
+        this.playing = false;
+        this.currentlyPlaying = null;
+        this.progressIndicator = null;
+    }
+
+    play(element) {
+        const name = element.id;
+        this.pause();
+
+        if (this.currentlyPlaying && this.currentlyPlaying.id === `${name}-audio`) {
+            element.classList.remove('active');
+            this.playing = false;
+            this.currentlyPlaying = null;
+            return;
         }
+
+        this.currentlyPlaying = element.querySelector('audio');
+        this.currentlyPlaying.play();
+
+        const progress = element.querySelector('.progress');
+        progress.style.display = 'block';
+
+        this.currentlyPlaying.addEventListener('timeupdate', () => {
+            const percent = (this.currentlyPlaying.currentTime / this.currentlyPlaying.duration) * 100;
+            progress.style.width = `${percent}%`;
+        });
+        this.progressIndicator = progress;
+        this.playing = true;
+    }
+
+    pause() {
+        if (this.playing && this.currentlyPlaying) {
+            document.querySelectorAll('.cell.active').forEach(el => el.classList.remove('active'));
+            this.currentlyPlaying.pause();
+            this.playing = false;
+        }
+    }
 }
 
-// button handler
-$('.cell').click(function () {
-	$('.progress').css('display', 'none');
-	audioPlayer.play(this);
+const audioPlayer = new AudioPlayer();
+
+document.querySelectorAll('.cell').forEach(cell => {
+    cell.addEventListener('click', () => {
+        document.querySelectorAll('.progress').forEach(p => p.style.display = 'none');
+        audioPlayer.play(cell);
+    });
 });
 
 window.audioPlayer = audioPlayer;
