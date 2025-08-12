@@ -33,3 +33,9 @@
   alt: "Washington, DC"
   audio: assets/sounds/dc.m4a
   bg: "#000000"
+  
+- id: lyon
+  titleImg: assets/titles/lyon.svg
+  alt: "Lyon"
+  audio: assets/sounds/lyon.m4a
+  bg: "#ffffff"
