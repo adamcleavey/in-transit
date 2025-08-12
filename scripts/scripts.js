@@ -8,35 +8,52 @@ class AudioPlayer {
     }
 
     play(element) {
-        const name = element.id;
-        this.pause();
+        const audio = element.querySelector('audio');
+        const progress = element.querySelector('.progress');
 
-        if (this.currentlyPlaying && this.currentlyPlaying.id === `${name}-audio`) {
-            element.classList.remove('active');
-            this.playing = false;
-            this.currentlyPlaying = null;
+        // Toggle pause/play if clicking the same element
+        if (this.currentlyPlaying === audio) {
+            if (this.playing) {
+                this.pause(true);
+            } else {
+                this.currentlyPlaying.play();
+                this.playing = true;
+                this.progressIndicator.classList.remove('paused');
+            }
             return;
         }
 
-        this.currentlyPlaying = element.querySelector('audio');
-        this.currentlyPlaying.play();
+        // New element clicked, reset all progress bars and stop current audio
+        this.pause();
+        document.querySelectorAll('.progress').forEach(p => {
+            p.classList.remove('paused');
+            p.style.width = '0%';
+        });
 
-        const progress = element.querySelector('.progress');
-        progress.style.display = 'block';
+        this.currentlyPlaying = audio;
+        this.progressIndicator = progress;
+        this.currentlyPlaying.currentTime = 0;
+        this.currentlyPlaying.play();
+        this.playing = true;
 
         this.currentlyPlaying.addEventListener('timeupdate', () => {
             const percent = (this.currentlyPlaying.currentTime / this.currentlyPlaying.duration) * 100;
-            progress.style.width = `${percent}%`;
+            this.progressIndicator.style.width = `${percent}%`;
         });
-        this.progressIndicator = progress;
-        this.playing = true;
     }
 
-    pause() {
-        if (this.playing && this.currentlyPlaying) {
-            document.querySelectorAll('.cell.active').forEach(el => el.classList.remove('active'));
+    pause(showPaused = false) {
+        if (this.currentlyPlaying) {
             this.currentlyPlaying.pause();
             this.playing = false;
+            if (showPaused) {
+                this.progressIndicator.classList.add('paused');
+            } else {
+                this.progressIndicator && this.progressIndicator.classList.remove('paused');
+                this.progressIndicator && (this.progressIndicator.style.width = '0%');
+                this.currentlyPlaying = null;
+                this.progressIndicator = null;
+            }
         }
     }
 }
@@ -45,7 +62,6 @@ const audioPlayer = new AudioPlayer();
 
 document.querySelectorAll('.cell').forEach(cell => {
     cell.addEventListener('click', () => {
-        document.querySelectorAll('.progress').forEach(p => p.style.display = 'none');
         audioPlayer.play(cell);
     });
 });
