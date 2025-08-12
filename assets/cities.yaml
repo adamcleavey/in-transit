@@ -35,7 +35,7 @@
   bg: "#000000"
   
 - id: lyon
-  titleImg: assets/titles/lyon.png
+  titleImg: assets/titles/lyon.svg
   alt: "Lyon"
   audio: assets/sounds/lyon.m4a
-  bg: "#000000"
+  bg: "#ffffff"
