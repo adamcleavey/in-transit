@@ -21,9 +21,19 @@ class TestAssetsExist(unittest.TestCase):
         html = index_path.read_text(encoding="utf-8")
         parser = SrcCollector()
         parser.feed(html)
-        missing = [src for src in parser.sources if not (project_root / src).exists()]
+        sources = list(parser.sources)
+
+        cities_yaml = project_root / "assets" / "cities.yaml"
+        if cities_yaml.exists():
+            for line in cities_yaml.read_text(encoding="utf-8").splitlines():
+                line = line.strip()
+                if line.startswith("titleImg:") or line.startswith("audio:"):
+                    sources.append(line.split(":", 1)[1].strip().strip("'\""))
+
+        missing = [src for src in sources if not (project_root / src).exists()]
         self.assertEqual(missing, [], f"Missing asset files: {missing}")
 
 if __name__ == "__main__":
     unittest.main()
+
 

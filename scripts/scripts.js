@@ -1,3 +1,5 @@
+import yaml from 'https://cdn.jsdelivr.net/npm/js-yaml/+esm';
+
 // Modern JavaScript audio player without jQuery
 
 class AudioPlayer {
@@ -60,10 +62,33 @@ class AudioPlayer {
 
 const audioPlayer = new AudioPlayer();
 
-document.querySelectorAll('.cell').forEach(cell => {
-    cell.addEventListener('click', () => {
-        audioPlayer.play(cell);
-    });
-});
+async function buildCells() {
+    const text = await fetch('assets/cities.yaml').then(r => r.text());
+    const cities = yaml.load(text);
+    const container = document.querySelector('#container');
 
-window.audioPlayer = audioPlayer;
+    for (const city of cities) {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        cell.id = city.id;
+        cell.style.backgroundColor = city.bg;
+
+        cell.innerHTML = `
+      <img src="${city.titleImg}" alt="${city.alt}">
+      <audio preload="auto" src="${city.audio}" id="${city.id}-audio"></audio>
+      <div class="progress"></div>
+    `;
+
+        container.appendChild(cell);
+    }
+}
+
+async function init() {
+    await buildCells();
+    document.querySelectorAll('.cell').forEach(cell => {
+        cell.addEventListener('click', () => audioPlayer.play(cell));
+    });
+    window.audioPlayer = audioPlayer;
+}
+
+init();
