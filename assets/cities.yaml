@@ -1,0 +1,35 @@
+- id: nyc
+  titleImg: assets/titles/new-york.svg
+  alt: "New York City"
+  audio: assets/sounds/nyc.mp3
+  bg: "#000000"
+
+- id: paris
+  titleImg: assets/titles/paris.png
+  alt: "Paris"
+  audio: assets/sounds/paris.mp3
+  bg: "#86DFE3"
+
+- id: montreal
+  titleImg: assets/titles/montreal.svg
+  alt: "Montreal"
+  audio: assets/sounds/montreal.mp3
+  bg: "#7058ee"
+
+- id: mexicocity
+  titleImg: assets/titles/mexico-city.png
+  alt: "Mexico City"
+  audio: assets/sounds/mexicocity.mp3
+  bg: "#ce0786"
+
+- id: bangkok
+  titleImg: assets/titles/bangkok.png
+  alt: "Bangkok"
+  audio: assets/sounds/bangkok.mp3
+  bg: "#C60013"
+
+- id: dc
+  titleImg: assets/titles/dc.png
+  alt: "Washington, DC"
+  audio: assets/sounds/dc.m4a
+  bg: "#000000"
