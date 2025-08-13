@@ -39,3 +39,9 @@
   alt: "Lyon"
   audio: assets/sounds/lyon.m4a
   bg: "#ffffff"
+
+- id: london
+  titleImg: assets/titles/london.png
+  alt: "London"
+  audio: assets/sounds/london.m4a
+  bg: "#141B6A"
