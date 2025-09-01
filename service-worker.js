@@ -2,7 +2,10 @@ const CACHE_NAME = 'in-transit-cache-v1';
 const CORE_ASSETS = [
   '/',
   '/index.html',
-  '/scripts/scripts.js',
+  '/scripts/main.js',
+  '/scripts/audio/AudioPlayer.js',
+  '/scripts/data/cities.js',
+  '/scripts/ui/cells.js',
   '/styles/styles.css',
   '/assets/cities.yaml',
   'https://cdn.jsdelivr.net/npm/js-yaml/+esm'
